@@ -1,4 +1,10 @@
-# ComfyUI-DDColor
+# ComfyUI DDColor (Unofficial Support)
+
+Unofficial [DDColor](https://github.com/piddnad/DDColor) support for [ComfyUI](https://github.com/comfyanonymous/ComfyUI).
+
+Minor revised based on [ComfyUI-DDColor](https://github.com/kijai/ComfyUI-DDColor), mainly changed the model downloading directory to ComfyUI's official folders.
+
+# Following is the README of ComfyUI-DDColor
 
 Node to use DDColor (https://github.com/piddnad/DDColor) in ComfyUI
 
