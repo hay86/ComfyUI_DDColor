@@ -6,45 +6,41 @@ from .ddcolor.ddcolor_arch import DDColor
 import torch.nn.functional as F
 import comfy.model_management
 from huggingface_hub import snapshot_download
+import folder_paths
 
-script_directory = os.path.dirname(os.path.abspath(__file__))
-
-class DDColor_Colorize:
-    
+class DDColor:
     @classmethod
     def INPUT_TYPES(s):
-        return {"required": {
-            "image": ("IMAGE", ),
-            "model_input_size": ("INT", {"default": 512,"min": 32, "max": 4096, "step": 32}),
-            "checkpoint": (
-            [   
-                "ddcolor_paper_tiny.pth",
-                "ddcolor_paper.pth",
-                "ddcolor_modelscope.pth",
-                "ddcolor_artistic.pth",
-            ], {
-               "default": "ddcolor_paper_tiny.pth"
-            }),
-            
-            
+        return {
+            "required": {
+                "image": ("IMAGE", ),
+                "model_input_size": ("INT", {"default": 512,"min": 32, "max": 4096, "step": 32}),
+                "checkpoint": (
+                    [   
+                        "ddcolor_paper_tiny.pth",
+                        "ddcolor_paper.pth",
+                        "ddcolor_modelscope.pth",
+                        "ddcolor_artistic.pth",
+                    ], {
+                       "default": "ddcolor_paper_tiny.pth"
+                    }
+                ),
             },
-            
-            
-            }
-    
-    RETURN_TYPES = ("IMAGE",)
-    RETURN_NAMES =("colorized_image",)
-    FUNCTION = "process"
+        }
 
     CATEGORY = "DDColor"
+    
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "inference"
+    
     @torch.no_grad()
-    def process(self, image, model_input_size, checkpoint):
+    def inference(self, image, model_input_size, checkpoint):
         self.device = comfy.model_management.get_torch_device()
         batch_size = image.shape[0]
         self.input_size = model_input_size
         self.checkpoint = checkpoint
-        self.checkpoint_folder = os.path.join(script_directory, f"checkpoints")
-        self.checkpoint_path = os.path.join(script_directory, f"checkpoints/{checkpoint}")
+        self.checkpoint_folder = os.path.join(folder_paths.models_dir, f"ddcolor")
+        self.checkpoint_path = os.path.join(folder_paths.models_dir, f"ddcolor/{checkpoint}")
 
         if not os.path.isfile(self.checkpoint_path):
             try:
@@ -100,8 +96,8 @@ class DDColor_Colorize:
         return(batch_out,)
     
 NODE_CLASS_MAPPINGS = {
-    "DDColor_Colorize": DDColor_Colorize,
+    "D_DDColor": DDColor,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "DDColor_Colorize": "DDColor_Colorize",
+    "D_DDColor": "DDColor",
 }
