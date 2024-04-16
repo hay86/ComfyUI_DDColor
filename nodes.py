@@ -8,7 +8,7 @@ import comfy.model_management
 from huggingface_hub import snapshot_download
 import folder_paths
 
-class DDColor:
+class DDColorNode:
     @classmethod
     def INPUT_TYPES(s):
         return {
@@ -96,7 +96,7 @@ class DDColor:
         return(batch_out,)
     
 NODE_CLASS_MAPPINGS = {
-    "D_DDColor": DDColor,
+    "D_DDColor": DDColorNode,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
     "D_DDColor": "DDColor",
