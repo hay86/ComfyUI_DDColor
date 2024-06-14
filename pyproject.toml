@@ -1,0 +1,15 @@
+[project]
+name = "comfyui_ddcolor"
+description = "Unofficial implementation of [a/DDColor](https://github.com/piddnad/DDColor) for ComfyUI"
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["numpy>=1.24.3", "opencv_python>=4.7.0.72", "Pillow>=10.1.0", "timm>=0.9.2", "huggingface_hub"]
+
+[project.urls]
+Repository = "https://github.com/hay86/ComfyUI_DDColor"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "ComfyUI_DDColor"
+Icon = ""
